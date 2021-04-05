@@ -1,5 +1,5 @@
 const WIDTH = 1000;
-const HEIGHT = 800;
+const HEIGHT = 400;
 
 const game = new Game();
 game.scoreDom = document.querySelector('#score');

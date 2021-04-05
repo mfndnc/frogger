@@ -1,7 +1,11 @@
 class Game {
   constructor() {
     this.background = new Background();
+    this.obstacles = new Obstacles();
     this.frog = new Frog();
+    this.testing = false;
+    // ALL BELOW CAN BE DELETED SOON
+    this.testing = false;
     this.testImages = [];
     this.testimg;
   }
@@ -31,12 +35,13 @@ class Game {
     };
 
     this.testimg = loadImage('./img/wip/other/fuel.png');
+
+    // ALL ABOVE CAN BE DELETED SOON
+    this.background.preload();
+    this.obstacles.preload();
+    this.frog.preload();
   }
 
-  preload2() {
-    this.frog.preload();
-    this.background.preload();
-  }
   setup() {
     // temp just so we can see it
     background('rgba(0,255,0, 0.25)');
@@ -57,31 +62,32 @@ class Game {
 
     //image(this.testimg, 0, 40);
     rotate(90);
-  }
-  setup2() {
-    this.frog.setup();
+
+    // ALL ABOVE CAN BE DELETED SOON
     this.background.setup();
+    this.obstacles.setup();
+    this.frog.setup();
+
+    this.obstacles.riverPosition(this.background.signalRiverPosition());
+    this.obstacles.roadPosition(this.background.signalRoadPosition());
+    this.obstacles.frogPosition(this.frog.signalPosition());
   }
 
   draw() {
-    //clear();
+    if (this.testing) {
+    } else {
+      // draw part
+      clear();
+      background('rgba(0,255,0, 0.25)');
+      this.background.draw();
+      this.obstacles.draw();
+      this.frog.draw();
+      // detection part
+      this.obstacles.frogPosition(this.frog.signalPosition());
+    }
   }
 
   keyPressed(keyCode) {
-    if (keyCode === UP_ARROW) {
-      this.frog.moveUp(); //38
-    }
-    if (keyCode === DOWN_ARROW) {
-      this.frog.moveDown(); //40
-    }
-    if (keyCode === LEFT_ARROW) {
-      this.frog.moveLeft(); //37
-    }
-    if (keyCode === RIGHT_ARROW) {
-      this.frog.moveRight(); //39
-    }
-
-    this.signalFrogPosition();
+    this.frog.keyPressed(keyCode);
   }
-  signalFrogPosition() {}
 }
