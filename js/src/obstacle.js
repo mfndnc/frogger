@@ -11,7 +11,8 @@ class Obstacle {
       this.iniX = 0;
       this.direction = 1;
     }
-    this.speed = 2;
+    this.offsetSpeed = info.offsetSpeed;
+    this.speed = 2 * this.offsetSpeed;
     this.x = this.iniX;
     this.y = this.iniY;
   }

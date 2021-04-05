@@ -10,6 +10,10 @@ class Obstacles {
       rl: [],
       lr: [],
     };
+    this.offsetSpeed = {
+      rl: [3, 2, 1.6, 1.2],
+      lr: [1.5, 1, 2, 1.5],
+    };
     this.avoids = [];
     this.rides = [];
     this.appearanceFrequency = 40;
@@ -37,10 +41,10 @@ class Obstacles {
     let randomObstable = this.imagesRef[which][randomIndex];
     let rlORlr = randomObstable.rllr;
     let randomIniYIndex = Math.floor(Math.random() * this.iniY[rlORlr].length);
-    let randomIniY = this.iniY[rlORlr][randomIniYIndex];
-    randomObstable.iniY = randomIniY;
-    let newObstacle = new Obstacle(randomObstable);
-    return new Obstacle(newObstacle);
+
+    randomObstable.iniY = this.iniY[rlORlr][randomIniYIndex];
+    randomObstable.offsetSpeed = this.offsetSpeed[rlORlr][randomIniYIndex];
+    return new Obstacle(randomObstable);
   }
   riverPosition(arr) {
     // only called during setup so initial values can be correctly evaluated
