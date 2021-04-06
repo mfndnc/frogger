@@ -6,35 +6,12 @@ class Game {
     this.testing = false;
     // ALL BELOW CAN BE DELETED SOON
     this.testing = false;
-    this.testImages = [];
-    this.testimg;
+    this.testImages = new TestImages();
   }
   preload() {
-    this.testImages[0] = {
-      src: loadImage('./img/wip/car-left.png'),
-    };
-    this.testImages[1] = {
-      src: loadImage('./img/wip/car-right.png'),
-    };
-    this.testImages[2] = {
-      src: loadImage('./img/wip/car2-left.png'),
-    };
-    this.testImages[3] = {
-      src: loadImage('./img/wip/car2-right.png'),
-    };
-    this.testImages[4] = {
-      src: loadImage('./img/wip/tree.png'),
-    };
-    this.testImages[9] = {
-      src: loadImage('./img/wip/wizard.bmp'),
-      aa: true,
-    };
-
-    this.testImages[11] = {
-      src: loadImage('./img/wip/road.png'),
-    };
-
-    this.testimg = loadImage('./img/wip/other/fuel.png');
+    if (this.testing) {
+      this.testImages.preload();
+    }
 
     // ALL ABOVE CAN BE DELETED SOON
     this.background.preload();
@@ -43,25 +20,9 @@ class Game {
   }
 
   setup() {
-    // temp just so we can see it
-    background('rgba(0,255,0, 0.25)');
-    //imageMode(CENTER);
-    let x = 0;
-    let y = 0;
-    this.testImages.forEach((img) => {
-      image(img.src, x, y);
-      if (img.aa) {
-        x = 0;
-        y += img.src.height;
-      } else {
-        x += img.src.width;
-      }
-    });
-
-    // single
-
-    //image(this.testimg, 0, 40);
-    rotate(90);
+    if (this.testing) {
+      this.testImages.setup();
+    }
 
     // ALL ABOVE CAN BE DELETED SOON
     this.background.setup();
@@ -70,24 +31,28 @@ class Game {
 
     this.obstacles.riverPosition(this.background.signalRiverPosition());
     this.obstacles.roadPosition(this.background.signalRoadPosition());
-    this.obstacles.frogPosition(this.frog.signalPosition());
   }
 
   draw() {
-    if (this.testing) {
-    } else {
+    if (!this.testing) {
       // draw part
       clear();
-      background('rgba(0,255,0, 0.25)');
+      background('#567d46');
       this.background.draw();
       this.obstacles.draw();
       this.frog.draw();
       // detection part
-      this.obstacles.frogPosition(this.frog.signalPosition());
+      this.evaluateFrogJouney();
     }
   }
 
   keyPressed(keyCode) {
     this.frog.keyPressed(keyCode);
+  }
+
+  evaluateFrogJouney() {
+    // if avoided collision and reached goal, winner
+    // if not avoided collision, get new live
+    this.obstacles.avoidedCollision(this.frog);
   }
 }

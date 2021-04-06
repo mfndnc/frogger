@@ -6,20 +6,24 @@ class Background {
     this.repeatX;
     this.repeatY;
     this.img;
+    this.width;
+    this.height;
   }
   //  p5 equiv funcs
   preload() {
     this.img = loadImage(this.imgName);
   }
   setup() {
-    this.repeatX = Math.ceil(WIDTH / this.img.width);
+    this.width = this.img.width;
+    this.height = this.img.height;
+    this.repeatX = Math.ceil(WIDTH / this.width);
     this.repeatY = 2;
-    this.iniY = HEIGHT - this.repeatY * this.img.height - 50;
+    this.iniY = HEIGHT - this.repeatY * this.height - 50;
   }
   draw() {
     for (let i = 0; i < this.repeatX; i++) {
       for (let j = 0; j < this.repeatY; j++) {
-        image(this.img, i * this.img.width, j * this.img.height + this.iniY);
+        image(this.img, i * this.width, j * this.height + this.iniY);
       }
     }
   }
@@ -29,6 +33,6 @@ class Background {
     return [0, 0];
   }
   signalRoadPosition() {
-    return [this.iniX, this.iniY, this.img.width, this.img.height];
+    return [this.iniX, this.iniY, this.width, this.height];
   }
 }

@@ -2,21 +2,23 @@ class Obstacles {
   constructor() {
     this.imagesRef = {
       avoids: [
-        { src: './img/car-left.png', rllr: 'rl' },
-        { src: './img/car-right.png', rllr: 'lr' },
+        { src: './img/car-left.png', rllr: 'rl', name: 'car1l' },
+        { src: './img/car-right.png', rllr: 'lr', name: 'car1r' },
+        { src: './img/car2-left.png', rllr: 'rl', name: 'car2l' },
+        { src: './img/car2-right.png', rllr: 'lr', name: 'car2r' },
       ],
-    };
-    this.iniY = {
-      rl: [],
-      lr: [],
     };
     this.offsetSpeed = {
       rl: [3, 2, 1.6, 1.2],
       lr: [1.5, 1, 2, 1.5],
     };
+    this.iniYs = {
+      rl: [],
+      lr: [],
+    };
     this.avoids = [];
     this.rides = [];
-    this.appearanceFrequency = 40;
+    this.appearanceFrequency = 15;
   }
   // p5 equiv funcs
   preload() {
@@ -34,16 +36,20 @@ class Obstacles {
     this.avoids.forEach(function (obstacle) {
       obstacle.draw();
     });
+
+    this.avoids = this.avoids.filter(function (obstacle) {
+      return obstacle.withinRange();
+    });
   }
   // game
-  randomPicker(which) {
+  randomPicker(which, rllr) {
     let randomIndex = Math.floor(Math.random() * this.imagesRef[which].length);
     let randomObstable = this.imagesRef[which][randomIndex];
-    let rlORlr = randomObstable.rllr;
-    let randomIniYIndex = Math.floor(Math.random() * this.iniY[rlORlr].length);
-
-    randomObstable.iniY = this.iniY[rlORlr][randomIniYIndex];
+    let rlORlr = rllr ? rllr : randomObstable.rllr;
+    let randomIniYIndex = Math.floor(Math.random() * this.iniYs[rlORlr].length);
+    randomObstable.iniY = this.iniYs[rlORlr][randomIniYIndex];
     randomObstable.offsetSpeed = this.offsetSpeed[rlORlr][randomIniYIndex];
+
     return new Obstacle(randomObstable);
   }
   riverPosition(arr) {
@@ -53,19 +59,25 @@ class Obstacles {
     // only called during setup so initial values can be correctly evaluated
     let offset = 9;
 
-    this.iniY.rl[0] = arr[1] + offset;
-    this.iniY.rl[1] = arr[1] + arr[3] / 2 + offset;
-    let delta = (this.iniY.rl[1] - this.iniY.rl[0]) / 2;
-    this.iniY.rl[2] = this.iniY.rl[0] + delta;
-    this.iniY.rl[3] = this.iniY.rl[1] + delta;
+    this.iniYs.rl[0] = arr[1] + offset;
+    this.iniYs.rl[1] = arr[1] + arr[3] / 2 + offset;
+    let delta = (this.iniYs.rl[1] - this.iniYs.rl[0]) / 2;
+    this.iniYs.rl[2] = this.iniYs.rl[0] + delta;
+    this.iniYs.rl[3] = this.iniYs.rl[1] + delta;
 
-    this.iniY.lr[0] = arr[1] + arr[3] + offset;
-    this.iniY.lr[1] = arr[1] + arr[3] * 1.5 + offset;
-    delta = (this.iniY.lr[1] - this.iniY.lr[0]) / 2;
-    this.iniY.lr[2] = this.iniY.lr[0] + delta;
-    this.iniY.lr[3] = this.iniY.lr[1] + delta;
+    this.iniYs.lr[0] = arr[1] + arr[3] + offset;
+    this.iniYs.lr[1] = arr[1] + arr[3] * 1.5 + offset;
+    delta = (this.iniYs.lr[1] - this.iniYs.lr[0]) / 2;
+    this.iniYs.lr[2] = this.iniYs.lr[0] + delta;
+    this.iniYs.lr[3] = this.iniYs.lr[1] + delta;
+
+    // remove after. just here for testing
+    //this.avoids.push(this.randomPicker('avoids', 'lr'));
   }
-  frogPosition(arr) {
-    // called at every draw
+  avoidedCollision(frog) {
+    for (let obstacle of this.avoids) {
+      if (!obstacle.avoidedCollision(frog)) return false;
+    }
+    return true;
   }
 }

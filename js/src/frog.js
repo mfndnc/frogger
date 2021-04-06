@@ -1,5 +1,7 @@
 class Frog {
   constructor() {
+    this.width;
+    this.height;
     this.imgName = './img/frog.bmp';
     this.img;
     this.x = WIDTH - 200;
@@ -9,7 +11,10 @@ class Frog {
   preload() {
     this.img = loadImage(this.imgName);
   }
-  setup() {}
+  setup() {
+    this.width = this.img.width;
+    this.height = this.img.height;
+  }
   draw() {
     image(this.img, this.x, this.y);
 
@@ -56,6 +61,6 @@ class Frog {
 
   // game
   signalPosition() {
-    return [this.x, this.y, this.img.width, this.img.height];
+    return [this.x, this.y, this.width, this.height];
   }
 }
