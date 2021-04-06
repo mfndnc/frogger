@@ -1,10 +1,10 @@
 class Timer {
   constructor() {
-    this.timer = 5;
+    this.timer = 2;
     this.finished = false;
   }
   draw() {
-    background(220);
+    background('#CCDEC5');
     textAlign(CENTER, CENTER);
     textSize(100);
 

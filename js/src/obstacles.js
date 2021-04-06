@@ -3,12 +3,23 @@ class Obstacles {
     this.safeY;
     this.imagesRef = {
       avoids: [
-        { src: './img/car-left.png', rllr: 'rl', name: 'car1l' },
-        { src: './img/car-right.png', rllr: 'lr', name: 'car1r' },
-        { src: './img/car2-left.png', rllr: 'rl', name: 'car2l' },
-        { src: './img/car2-right.png', rllr: 'lr', name: 'car2r' },
-        { src: './img/truck5lr.png', rllr: 'lr', name: 'truck5lr' },
+        { src: './img/truck4rl.png', rllr: 'rl', name: 'truck4rl' },
         { src: './img/truck5rl.png', rllr: 'rl', name: 'truck5rl' },
+        { src: './img/car2rl.png', rllr: 'rl', name: 'car2rl' },
+        { src: './img/car3rl.png', rllr: 'rl', name: 'car3rl' },
+        { src: './img/car5rl.png', rllr: 'rl', name: 'car5rl' },
+        { src: './img/car6rl.png', rllr: 'rl', name: 'car6rl' },
+        { src: './img/car8rl.png', rllr: 'rl', name: 'car8rl' },
+        { src: './img/car9rl.png', rllr: 'rl', name: 'car9rl' },
+
+        { src: './img/truck4lr.png', rllr: 'lr', name: 'truck4lr' },
+        { src: './img/truck5lr.png', rllr: 'lr', name: 'truck5lr' },
+        { src: './img/car2lr.png', rllr: 'lr', name: 'car2lr' },
+        { src: './img/car3lr.png', rllr: 'lr', name: 'car3lr' },
+        { src: './img/car5lr.png', rllr: 'lr', name: 'car5lr' },
+        { src: './img/car6lr.png', rllr: 'lr', name: 'car6lr' },
+        { src: './img/car8lr.png', rllr: 'lr', name: 'car8lr' },
+        { src: './img/car9lr.png', rllr: 'lr', name: 'car9lr' },
       ],
     };
     this.avoidslrrl = {

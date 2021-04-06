@@ -49,7 +49,7 @@ class Game {
       // draw part
 
       clear();
-      background('#567d46');
+
       this.background.draw();
 
       if (this.frogappears) {

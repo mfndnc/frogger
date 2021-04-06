@@ -1,5 +1,5 @@
 const WIDTH = 1000;
-const HEIGHT = 600;
+const HEIGHT = 500;
 
 const game = new Game();
 

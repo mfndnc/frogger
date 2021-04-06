@@ -7,10 +7,9 @@ class Gameover {
     }
   }
   draw() {
-    background(220);
+    background('#CCDEC5');
     textAlign(CENTER, CENTER);
     textSize(100);
-
     text(this.statustext, width / 2, height / 2);
   }
 }

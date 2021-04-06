@@ -8,6 +8,7 @@ class Frog {
     this.iniY = HEIGHT - 45;
     this.x = this.iniX;
     this.y = this.iniY;
+    this.speed = 1.5;
   }
   //  p5 equiv funcs
   preload() {
@@ -49,16 +50,16 @@ class Frog {
   }
   // basics
   moveUp() {
-    this.y -= 1;
+    this.y -= this.speed;
   }
   moveDown() {
-    this.y += 1;
+    this.y += this.speed;
   }
   moveLeft() {
-    this.x -= 1;
+    this.x -= this.speed;
   }
   moveRight() {
-    this.x += 1;
+    this.x += this.speed;
   }
 
   // game

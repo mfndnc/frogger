@@ -2,31 +2,25 @@ class Score {
   constructor() {
     this.score = 0;
     this.lives = 3;
+    this.textHeight = 45;
   }
   preload() {}
   setup() {}
   draw() {
     textAlign(LEFT, BASELINE);
-    fill('black');
-    stroke('black');
+    fill('#182314');
+    stroke('#182314');
     rect(0, 0, WIDTH, 70);
 
     textSize(32);
     fill('white');
     stroke('white');
 
-    text('Score:', 10, 40);
-    text(this.score, 120, 40);
+    text('Score:', 20, this.textHeight);
+    text(this.score, 130, this.textHeight);
 
-    text('Lives:', 300, 40);
-    text(this.lives, 400, 40);
-
-    if (false) {
-      text('You WON!', 800, 40);
-    }
-    if (false) {
-      text('You LOST!', 800, 40);
-    }
+    text('Lives:', 300, this.textHeight);
+    text(this.lives, 400, this.textHeight);
   }
   broadcastReachedTarget() {
     this.score++;

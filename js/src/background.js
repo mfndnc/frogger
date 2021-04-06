@@ -21,6 +21,7 @@ class Background {
     this.iniY = HEIGHT - this.repeatY * this.height - 50;
   }
   draw() {
+    background('#567d46');
     for (let i = 0; i < this.repeatX; i++) {
       for (let j = 0; j < this.repeatY; j++) {
         image(this.img, i * this.width, j * this.height + this.iniY);
