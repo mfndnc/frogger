@@ -3,13 +3,13 @@ class Game {
     this.background = new Background();
     this.obstacles = new Obstacles();
     this.frog = new Frog();
-    this.testing = false;
+    this.testingImagesInsteadOfGame = false;
     // ALL BELOW CAN BE DELETED SOON
-    this.testing = false;
+    this.testingImagesInsteadOfGame = false;
     this.testImages = new TestImages();
   }
   preload() {
-    if (this.testing) {
+    if (this.testingImagesInsteadOfGame) {
       this.testImages.preload();
     }
 
@@ -20,7 +20,7 @@ class Game {
   }
 
   setup() {
-    if (this.testing) {
+    if (this.testingImagesInsteadOfGame) {
       this.testImages.setup();
     }
 
@@ -34,7 +34,7 @@ class Game {
   }
 
   draw() {
-    if (!this.testing) {
+    if (!this.testingImagesInsteadOfGame) {
       // draw part
       clear();
       background('#567d46');
@@ -53,6 +53,7 @@ class Game {
   evaluateFrogJouney() {
     // if avoided collision and reached goal, winner
     // if not avoided collision, get new live
+    // create a new class for showing results?
     this.obstacles.avoidedCollision(this.frog);
   }
 }

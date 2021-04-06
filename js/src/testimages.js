@@ -20,6 +20,21 @@ class TestImages {
     this.testImages[4] = {
       src: loadImage('./img/wip/tree.png'),
     };
+    this.testImages[5] = {
+      src: loadImage('./img/wip/more/car-truck1.png'),
+    };
+    this.testImages[6] = {
+      src: loadImage('./img/wip/more/car2scaled.png'),
+    };
+    this.testImages[7] = {
+      src: loadImage('./img/wip/more/spr_limo_0.png'),
+    };
+    this.testImages[8] = {
+      src: loadImage('./img/wip/more/car2.png'),
+      scaleW: 38,
+      scaleH: 16,
+    };
+
     this.testImages[9] = {
       src: loadImage('./img/wip/wizard.bmp'),
       aa: true,
@@ -39,13 +54,18 @@ class TestImages {
     let x = 0;
     let y = 0;
     this.testImages.forEach((img) => {
-      image(img.src, x, y);
+      if (img.scaleW) {
+        image(img.src, x, y, img.scaleW, img.scaleH);
+      } else {
+        image(img.src, x, y);
+      }
       if (img.aa) {
         x = 0;
         y += img.src.height;
       } else {
         x += img.src.width;
       }
+      console.log(img, img.src.width);
     });
 
     // single

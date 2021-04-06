@@ -11,7 +11,7 @@ class Obstacle {
       this.iniX = WIDTH;
       this.direction = -1;
     } else {
-      this.iniX = 0;
+      this.iniX = -200;
       this.direction = 1;
     }
     this.offsetSpeed = info.offsetSpeed;
@@ -26,7 +26,7 @@ class Obstacle {
     image(this.img, this.x, this.y);
   }
   withinRange() {
-    return this.x >= 0 && this.x <= WIDTH;
+    return this.x >= -200 && this.x <= WIDTH;
   }
   avoidedCollision(frog) {
     //console.log('frogwidth', frog.y, this.y);
