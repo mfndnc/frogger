@@ -3,6 +3,11 @@ class Game {
     this.background = new Background();
     this.obstacles = new Obstacles();
     this.frog = new Frog();
+    this.score = new Score();
+
+    this.frogappears = false;
+    this.gameOverAndTimer;
+
     this.testingImagesInsteadOfGame = false;
     // ALL BELOW CAN BE DELETED SOON
     this.testingImagesInsteadOfGame = false;
@@ -17,6 +22,7 @@ class Game {
     this.background.preload();
     this.obstacles.preload();
     this.frog.preload();
+    this.score.preload();
   }
 
   setup() {
@@ -28,6 +34,7 @@ class Game {
     this.background.setup();
     this.obstacles.setup();
     this.frog.setup();
+    this.score.setup();
 
     this.obstacles.riverPosition(this.background.signalRiverPosition());
     this.obstacles.roadPosition(this.background.signalRoadPosition());
@@ -36,13 +43,29 @@ class Game {
   draw() {
     if (!this.testingImagesInsteadOfGame) {
       // draw part
+
       clear();
       background('#567d46');
       this.background.draw();
-      this.obstacles.draw();
-      this.frog.draw();
-      // detection part
-      this.evaluateFrogJouney();
+
+      if (this.frogappears) {
+        this.obstacles.draw();
+        this.frog.draw();
+        // detection part
+        this.evaluateFrogJouney();
+      } else {
+        if (this.gameOverAndTimer) {
+          this.gameOverAndTimer.draw();
+          if (this.gameOverAndTimer.finished) {
+            this.frogappears = true;
+            this.gameOverAndTimer = null;
+          }
+        } else {
+          this.gameOverAndTimer = new Timer();
+        }
+      }
+
+      this.score.draw();
     }
   }
 
@@ -54,6 +77,14 @@ class Game {
     // if avoided collision and reached goal, winner
     // if not avoided collision, get new live
     // create a new class for showing results?
-    this.obstacles.avoidedCollision(this.frog);
+
+    if (!this.obstacles.avoidedCollision(this.frog) && this.frogappears) {
+      this.frogappears = false;
+      this.frog.resetPosition();
+      if (!this.score.shouldLooseALive()) {
+        console.log('GAME OVER');
+        this.gameOverAndTimer = new Gameover(false);
+      }
+    }
   }
 }

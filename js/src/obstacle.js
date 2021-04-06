@@ -18,6 +18,8 @@ class Obstacle {
     this.speed = 2 * this.offsetSpeed;
     this.x = this.iniX;
     this.y = this.iniY;
+
+    this.collisionDist = 20;
   }
   setup() {}
   draw() {
@@ -35,7 +37,8 @@ class Obstacle {
 
     const frogX = frog.x + frog.width / 2;
     const frogY = frog.y + frog.height / 2;
-    if (dist(obstacleX, obstacleY, frogX, frogY) > this.height / 2) {
+
+    if (dist(obstacleX, obstacleY, frogX, frogY) > this.collisionDist) {
       return true;
     } else {
       console.log('colision', this.name);

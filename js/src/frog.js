@@ -4,8 +4,10 @@ class Frog {
     this.height;
     this.imgName = './img/frog.bmp';
     this.img;
-    this.x = WIDTH - 200;
-    this.y = HEIGHT - 50;
+    this.iniX = WIDTH - 400;
+    this.iniY = HEIGHT - 45;
+    this.x = this.iniX;
+    this.y = this.iniY;
   }
   //  p5 equiv funcs
   preload() {
@@ -62,5 +64,9 @@ class Frog {
   // game
   signalPosition() {
     return [this.x, this.y, this.width, this.height];
+  }
+  resetPosition() {
+    this.x = this.iniX;
+    this.y = this.iniY;
   }
 }
