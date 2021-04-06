@@ -1,6 +1,6 @@
 class Timer {
   constructor() {
-    this.timer = 3;
+    this.timer = 5;
     this.finished = false;
   }
   draw() {

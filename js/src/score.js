@@ -1,7 +1,7 @@
 class Score {
   constructor() {
     this.score = 0;
-    this.lives = 2;
+    this.lives = 3;
   }
   preload() {}
   setup() {}
@@ -27,6 +27,10 @@ class Score {
     if (false) {
       text('You LOST!', 800, 40);
     }
+  }
+  broadcastReachedTarget() {
+    this.score++;
+    return this.shouldLooseALive();
   }
   shouldLooseALive() {
     this.lives--;

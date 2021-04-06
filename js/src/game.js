@@ -5,6 +5,7 @@ class Game {
     this.frog = new Frog();
     this.score = new Score();
 
+    this.safeY = 0;
     this.frogappears = false;
     this.gameOverAndTimer;
 
@@ -36,8 +37,11 @@ class Game {
     this.frog.setup();
     this.score.setup();
 
-    this.obstacles.riverPosition(this.background.signalRiverPosition());
-    this.obstacles.roadPosition(this.background.signalRoadPosition());
+    let a = this.obstacles.riverPosition(this.background.signalRiverPosition());
+    let b = this.obstacles.roadPosition(this.background.signalRoadPosition());
+    let c = this.frog.getHeight();
+    this.safeY = a + b - c - 20;
+    this.obstacles.setSavePosition(this.safeY);
   }
 
   draw() {
@@ -78,12 +82,22 @@ class Game {
     // if not avoided collision, get new live
     // create a new class for showing results?
 
+    // process in case frog was hit by a car or fell into the water
     if (!this.obstacles.avoidedCollision(this.frog) && this.frogappears) {
       this.frogappears = false;
       this.frog.resetPosition();
       if (!this.score.shouldLooseALive()) {
         console.log('GAME OVER');
         this.gameOverAndTimer = new Gameover(false);
+      }
+    }
+    // process the frog reached its goal
+    if (this.obstacles.reachedGoal(this.frog) && this.frogappears) {
+      this.frogappears = false;
+      this.frog.resetPosition();
+      if (!this.score.broadcastReachedTarget()) {
+        console.log('GAME WON');
+        this.gameOverAndTimer = new Gameover(true);
       }
     }
   }

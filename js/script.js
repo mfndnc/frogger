@@ -1,8 +1,7 @@
 const WIDTH = 1000;
-const HEIGHT = 500;
+const HEIGHT = 600;
 
 const game = new Game();
-game.scoreDom = document.querySelector('#score');
 
 function preload() {
   console.log('preload');

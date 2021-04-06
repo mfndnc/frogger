@@ -1,5 +1,6 @@
 class Obstacles {
   constructor() {
+    this.safeY;
     this.imagesRef = {
       avoids: [
         { src: './img/car-left.png', rllr: 'rl', name: 'car1l' },
@@ -24,7 +25,7 @@ class Obstacles {
     };
     this.avoids = [];
     this.rides = [];
-    this.appearanceFrequency = 15;
+    this.appearanceFrequency = 20;
   }
   // p5 equiv funcs
   preload() {
@@ -86,6 +87,7 @@ class Obstacles {
   }
   riverPosition(arr) {
     // only called during setup so initial values can be correctly evaluated
+    return 0;
   }
   roadPosition(arr) {
     // only called during setup so initial values can be correctly evaluated
@@ -105,6 +107,13 @@ class Obstacles {
 
     // remove after. just here for testing
     this.avoids.push(this.randomPicker('avoids', 'lr'));
+    return arr[1];
+  }
+  setSavePosition(num) {
+    this.safeY = num;
+  }
+  reachedGoal(frog) {
+    return frog.y < this.safeY;
   }
   avoidedCollision(frog) {
     for (let obstacle of this.avoids) {

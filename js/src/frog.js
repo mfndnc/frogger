@@ -62,8 +62,8 @@ class Frog {
   }
 
   // game
-  signalPosition() {
-    return [this.x, this.y, this.width, this.height];
+  getHeight() {
+    return this.height;
   }
   resetPosition() {
     this.x = this.iniX;

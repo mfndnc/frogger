@@ -31,7 +31,7 @@ class Obstacle {
     return this.x >= -200 && this.x <= WIDTH;
   }
   avoidedCollision(frog) {
-    //console.log('frogwidth', frog.y, this.y);
+    //console.log('avoidedCollision', frog.y, this.y);
     const obstacleX = this.x + this.width / 2;
     const obstacleY = this.y + this.height / 2;
 

@@ -1,6 +1,6 @@
 class Background {
   constructor() {
-    this.imgName = './img/wip/road.png';
+    this.imgName = './img/road.png';
     this.iniX = 0;
     this.iniY = 0;
     this.repeatX;
@@ -33,6 +33,13 @@ class Background {
     return [0, 0];
   }
   signalRoadPosition() {
+    console.log(
+      'signalRoadPosition',
+      this.iniX,
+      this.iniY,
+      this.width,
+      this.height
+    );
     return [this.iniX, this.iniY, this.width, this.height];
   }
 }
