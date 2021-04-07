@@ -1,6 +1,6 @@
 class Game {
   constructor() {
-    this.background = new Background();
+    this.baseRoad = new BaseRoad();
     this.obstacles = new Obstacles();
     this.frog = new Frog();
     this.score = new Score();
@@ -20,7 +20,7 @@ class Game {
     }
 
     // ALL ABOVE CAN BE DELETED SOON
-    this.background.preload();
+    this.baseRoad.preload();
     this.obstacles.preload();
     this.frog.preload();
     this.score.preload();
@@ -32,12 +32,12 @@ class Game {
     }
 
     // ALL ABOVE CAN BE DELETED SOON
-    this.background.setup();
+    this.baseRoad.setup();
     this.obstacles.setup();
     this.frog.setup();
     this.score.setup();
 
-    let b = this.obstacles.roadPosition(this.background.signalRoadPosition());
+    let b = this.obstacles.roadPosition(this.baseRoad.signalRoadPosition());
     let c = this.frog.getHeight();
     this.safeY = b - c - 20;
     this.obstacles.setSavePosition(this.safeY);
@@ -49,7 +49,8 @@ class Game {
 
       clear();
 
-      this.background.draw();
+      background('#567d46');
+      this.baseRoad.draw();
 
       if (this.frogappears) {
         this.obstacles.draw();
