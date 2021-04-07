@@ -122,7 +122,8 @@ class Obstacles {
     return true;
   }
 
-  // testing a new method to pick random based on randBoost - see idea from here: https://observablehq.com/@nextlevelshit/rejection-sampling-in-javascript
+  // testing a new method to pick random based on randBoost
+  // idea from here: https://observablehq.com/@nextlevelshit/rejection-sampling-in-javascript
   weight = function (arr) {
     return [].concat(
       ...arr.map((obj) => Array(Math.ceil(obj.randBoost * 100)).fill(obj))

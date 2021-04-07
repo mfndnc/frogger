@@ -77,24 +77,24 @@ class Game {
     this.frog.keyPressed(keyCode);
   }
 
+  evalueateRestartEndGame() {
+    this.frogappears = false;
+    this.frog.resetPosition();
+    if (!this.score.hasLivesLeft()) {
+      this.gameOverAndTimer = new Gameover(this.score.getScore());
+    }
+  }
+
   evaluateFrogJouney() {
     // process frog hit a car
     if (!this.obstacles.avoidedCollision(this.frog) && this.frogappears) {
-      this.frogappears = false;
-      this.frog.resetPosition();
-      if (!this.score.shouldLooseALive()) {
-        console.log('GAME OVER');
-        this.gameOverAndTimer = new Gameover(false);
-      }
+      this.score.shouldLooseALive();
+      this.evalueateRestartEndGame();
     }
     // process the frog reached its goal
     if (this.obstacles.reachedGoal(this.frog) && this.frogappears) {
-      this.frogappears = false;
-      this.frog.resetPosition();
-      if (!this.score.broadcastReachedTarget()) {
-        console.log('GAME WON');
-        this.gameOverAndTimer = new Gameover(true);
-      }
+      this.score.reachedTarget();
+      this.evalueateRestartEndGame();
     }
   }
 }

@@ -22,12 +22,17 @@ class Score {
     text('Lives:', 300, this.textHeight);
     text(this.lives, 400, this.textHeight);
   }
-  broadcastReachedTarget() {
+  reachedTarget() {
     this.score++;
-    return this.shouldLooseALive();
+    this.shouldLooseALive();
   }
   shouldLooseALive() {
     this.lives--;
+  }
+  hasLivesLeft() {
     return this.lives > 0;
+  }
+  getScore() {
+    return this.score;
   }
 }

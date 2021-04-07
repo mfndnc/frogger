@@ -1,7 +1,7 @@
 class Gameover {
-  constructor(status) {
-    if (status) {
-      this.statustext = 'YOU WON!';
+  constructor(score) {
+    if (score > 0) {
+      this.statustext = 'YOU SCORE IS: ' + score;
     } else {
       this.statustext = 'GAME OVER';
     }
