@@ -37,10 +37,9 @@ class Game {
     this.frog.setup();
     this.score.setup();
 
-    let a = this.obstacles.riverPosition(this.background.signalRiverPosition());
     let b = this.obstacles.roadPosition(this.background.signalRoadPosition());
     let c = this.frog.getHeight();
-    this.safeY = a + b - c - 20;
+    this.safeY = b - c - 20;
     this.obstacles.setSavePosition(this.safeY);
   }
 
@@ -78,11 +77,7 @@ class Game {
   }
 
   evaluateFrogJouney() {
-    // if avoided collision and reached goal, winner
-    // if not avoided collision, get new live
-    // create a new class for showing results?
-
-    // process in case frog was hit by a car or fell into the water
+    // process frog hit a car
     if (!this.obstacles.avoidedCollision(this.frog) && this.frogappears) {
       this.frogappears = false;
       this.frog.resetPosition();

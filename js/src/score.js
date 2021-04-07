@@ -8,8 +8,8 @@ class Score {
   setup() {}
   draw() {
     textAlign(LEFT, BASELINE);
-    fill('#182314');
-    stroke('#182314');
+    fill('#1E2C19');
+    stroke('#1E2C19');
     rect(0, 0, WIDTH, 70);
 
     textSize(32);

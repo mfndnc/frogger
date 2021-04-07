@@ -30,17 +30,7 @@ class Background {
   }
 
   // game
-  signalRiverPosition() {
-    return [0, 0];
-  }
   signalRoadPosition() {
-    console.log(
-      'signalRoadPosition',
-      this.iniX,
-      this.iniY,
-      this.width,
-      this.height
-    );
     return [this.iniX, this.iniY, this.width, this.height];
   }
 }

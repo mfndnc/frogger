@@ -3,23 +3,23 @@ class Obstacles {
     this.safeY;
     this.imagesRef = {
       allcars: [
-        { src: './img/truck4rl.png', rllr: 'rl' },
-        { src: './img/truck5rl.png', rllr: 'rl' },
-        { src: './img/car2rl.png', rllr: 'rl' },
-        { src: './img/car3rl.png', rllr: 'rl' },
-        { src: './img/car5rl.png', rllr: 'rl' },
-        { src: './img/car6rl.png', rllr: 'rl' },
-        { src: './img/car8rl.png', rllr: 'rl' },
-        { src: './img/car9rl.png', rllr: 'rl' },
+        { src: './img/truck4rl.png', rllr: 'rl', randBoost: 1 },
+        { src: './img/truck5rl.png', rllr: 'rl', randBoost: 1 },
+        { src: './img/car2rl.png', rllr: 'rl', randBoost: 1 },
+        { src: './img/car3rl.png', rllr: 'rl', randBoost: 1 },
+        { src: './img/car5rl.png', rllr: 'rl', randBoost: 1 },
+        { src: './img/car6rl.png', rllr: 'rl', randBoost: 1 },
+        { src: './img/car8rl.png', rllr: 'rl', randBoost: 1 },
+        { src: './img/car9rl.png', rllr: 'rl', randBoost: 1 },
 
-        { src: './img/truck4lr.png', rllr: 'lr' },
-        { src: './img/truck5lr.png', rllr: 'lr' },
-        { src: './img/car2lr.png', rllr: 'lr' },
-        { src: './img/car3lr.png', rllr: 'lr' },
-        { src: './img/car5lr.png', rllr: 'lr' },
-        { src: './img/car6lr.png', rllr: 'lr' },
-        { src: './img/car8lr.png', rllr: 'lr' },
-        { src: './img/car9lr.png', rllr: 'lr' },
+        { src: './img/truck4lr.png', rllr: 'lr', randBoost: 1 },
+        { src: './img/truck5lr.png', rllr: 'lr', randBoost: 1 },
+        { src: './img/car2lr.png', rllr: 'lr', randBoost: 1 },
+        { src: './img/car3lr.png', rllr: 'lr', randBoost: 1 },
+        { src: './img/car5lr.png', rllr: 'lr', randBoost: 1 },
+        { src: './img/car6lr.png', rllr: 'lr', randBoost: 1 },
+        { src: './img/car8lr.png', rllr: 'lr', randBoost: 1 },
+        { src: './img/car9lr.png', rllr: 'lr', randBoost: 1 },
       ],
       rl: [],
       lr: [],
@@ -39,9 +39,8 @@ class Obstacles {
       ],
     };
 
-    this.avoids = [];
-    this.rides = [];
-    this.appearanceFrequency = 20;
+    this.traffic = [];
+    this.frameTrigger = 20;
   }
   // p5 equiv funcs
   preload() {
@@ -53,25 +52,25 @@ class Obstacles {
   }
   setup() {}
   draw() {
-    if (frameCount % this.appearanceFrequency === 0) {
+    if (frameCount % this.frameTrigger === 0) {
       // making sure it alternates from left and right
-      if (frameCount % (this.appearanceFrequency * 2) === 0) {
-        this.avoids.push(this.randomPicker('lr'));
+      if (frameCount % (this.frameTrigger * 2) === 0) {
+        this.traffic.push(this.randomCarPicker('lr'));
       } else {
-        this.avoids.push(this.randomPicker('rl'));
+        this.traffic.push(this.randomCarPicker('rl'));
       }
     }
 
-    this.avoids.forEach(function (obstacle) {
+    this.traffic.forEach(function (obstacle) {
       obstacle.draw();
     });
 
-    this.avoids = this.avoids.filter(function (obstacle) {
+    this.traffic = this.traffic.filter(function (obstacle) {
       return obstacle.withinRange();
     });
   }
   // game
-  randomPicker(rllr) {
+  randomCarPicker(rllr) {
     if (rllr) {
       let randomIndex = Math.floor(Math.random() * this.imagesRef[rllr].length);
       let randomObstable = this.imagesRef[rllr][randomIndex];
@@ -84,10 +83,6 @@ class Obstacles {
       return new Obstacle(randomObstable);
     }
     return null;
-  }
-  riverPosition(arr) {
-    // only called during setup so initial values can be correctly evaluated
-    return 0;
   }
   roadPosition(arr) {
     // only called during setup so initial values can be correctly evaluated
@@ -115,7 +110,7 @@ class Obstacles {
     return frog.y < this.safeY;
   }
   avoidedCollision(frog) {
-    for (let obstacle of this.avoids) {
+    for (let obstacle of this.traffic) {
       if (!obstacle.avoidedCollision(frog)) return false;
     }
     return true;
