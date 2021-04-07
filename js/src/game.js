@@ -11,7 +11,7 @@ class Game {
 
     this.testingImagesInsteadOfGame = false;
     // ALL BELOW CAN BE DELETED SOON
-    this.testingImagesInsteadOfGame = false;
+    this.testingImagesInsteadOfGame = true;
     this.testImages = new TestImages();
   }
   preload() {
