@@ -2,7 +2,7 @@ class Frog {
   constructor() {
     this.width;
     this.height;
-    this.imgName = './img/frog.bmp';
+    this.imgName = './img/frog.png';
     this.img;
     this.iniX = WIDTH - 400;
     this.iniY = HEIGHT - 45;
