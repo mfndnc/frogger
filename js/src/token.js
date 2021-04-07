@@ -10,19 +10,30 @@ class Token {
     this.x = this.iniX;
     this.y = this.iniY;
 
-    this.collisionDist = 20;
+    this.collisionDist = 30;
   }
   setup() {}
   draw() {
     this.x += this.speed;
     //console.log('Token', this.img, this.x, this.y);
     image(this.img, this.x, this.y);
-    if (this.x > WIDTH) this.x = this.iniX - WIDTH;
   }
   withinRange() {
     return this.x >= -this.width && this.x <= WIDTH;
   }
   jumpSucceed(frog) {
+    if (
+      frog.x > this.x &&
+      frog.y >= this.y - 20 &&
+      frog.x + 10 < this.x + this.width &&
+      frog.y <= this.y + this.height + 20
+    ) {
+      //console.log('on top of wood', frog.y, this.y);
+      return true;
+    } else {
+      return false;
+    }
+
     //console.log('avoidedCollision', frog.y, this.y);
     const obstacleX = this.x + this.width / 2;
     const obstacleY = this.y + this.height / 2;
@@ -31,10 +42,9 @@ class Token {
     const frogY = frog.y + frog.height / 2;
 
     if (dist(obstacleX, obstacleY, frogX, frogY) > this.collisionDist) {
-      return true;
-    } else {
-      console.log('colision', this.checkin);
       return false;
+    } else {
+      return true;
     }
   }
 }

@@ -1,5 +1,7 @@
 class Game {
   constructor() {
+    this.timerTrick = 3;
+    this.timersecond = 2;
     this.baseRoad = new BaseRoad();
     this.obstacles = new Obstacles();
     this.tokens = new Tokens();
@@ -70,7 +72,9 @@ class Game {
             this.gameOverAndTimer = null;
           }
         } else {
-          this.gameOverAndTimer = new Timer();
+          this.gameOverAndTimer = new Timer(this.timerTrick);
+          // so the first time it takes longer
+          this.timerTrick = this.timersecond;
         }
       }
 
@@ -91,6 +95,17 @@ class Game {
   }
 
   evaluateFrogJouney() {
+    // process frog hit water
+    const checkFrogOnLog = this.tokens.jumpSucceed(this.frog);
+    if (checkFrogOnLog === false && this.frogappears) {
+      console.log('dsadsad');
+      //this.score.shouldLooseALive();
+      //this.evalueateRestartEndGame();
+    } else if (checkFrogOnLog === true && this.frogappears) {
+      this.frog.isNotOnLog();
+    } else {
+      this.frog.isOnLog(checkFrogOnLog);
+    }
     // process frog hit a car
     if (!this.obstacles.avoidedCollision(this.frog) && this.frogappears) {
       this.score.shouldLooseALive();

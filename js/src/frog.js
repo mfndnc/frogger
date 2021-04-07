@@ -6,9 +6,15 @@ class Frog {
     this.img;
     this.iniX = WIDTH - 400;
     this.iniY = HEIGHT - 45;
+
+    // remove. only for testing
+    this.iniX = 480;
+    this.iniY = 320;
+
     this.x = this.iniX;
     this.y = this.iniY;
-    this.speed = 1.5;
+    this.speed = 0;
+    this.mouseSpeed = 1.5;
   }
   //  p5 equiv funcs
   preload() {
@@ -19,6 +25,7 @@ class Frog {
     this.height = this.img.height;
   }
   draw() {
+    this.x += this.speed;
     image(this.img, this.x, this.y);
 
     if (keyIsDown(UP_ARROW)) {
@@ -50,19 +57,26 @@ class Frog {
   }
   // basics
   moveUp() {
-    this.y -= this.speed;
+    this.y -= this.mouseSpeed;
   }
   moveDown() {
-    this.y += this.speed;
+    this.y += this.mouseSpeed;
   }
   moveLeft() {
-    this.x -= this.speed;
+    this.x -= this.mouseSpeed;
   }
   moveRight() {
-    this.x += this.speed;
+    this.x += this.mouseSpeed;
   }
 
   // game
+  isOnLog(wood) {
+    this.speed = wood.speed;
+  }
+  isNotOnLog() {
+    this.speed = 0;
+  }
+
   getHeight() {
     return this.height;
   }

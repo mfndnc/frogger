@@ -1,5 +1,5 @@
 const WIDTH = 1000;
-const HEIGHT = 800;
+const HEIGHT = 750;
 
 const game = new Game();
 
@@ -20,5 +20,10 @@ function draw() {
 }
 
 function keyPressed() {
+  //console.log('frogroot', game.frog.x, game.frog.y);
   game.keyPressed(keyCode);
+}
+
+function mousePressed() {
+  console.log('mouse', mouseX, mouseY);
 }
