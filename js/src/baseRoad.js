@@ -8,10 +8,15 @@ class BaseRoad {
     this.img;
     this.width;
     this.height;
+    // tried but failed to find it pretty
+    this.decorations = [];
   }
   //  p5 equiv funcs
   preload() {
     this.img = loadImage(this.imgName);
+    this.decorations.forEach((img, i) => {
+      this.decorations[i].img = loadImage(img.src);
+    });
   }
   setup() {
     this.width = this.img.width;
@@ -26,8 +31,13 @@ class BaseRoad {
         image(this.img, i * this.width, j * this.height + this.iniY);
       }
     }
-  }
 
+    this.decorations.forEach((deco) =>
+      image(deco.img, deco.x, this.iniY + deco.y)
+    );
+  }
+  //image(deco.img, deco.x, this.iniY + deco.y)
+  //console.log(this.iniY, deco.y)
   // game
   signalRoadPosition() {
     return [this.iniX, this.iniY, this.width, this.height];

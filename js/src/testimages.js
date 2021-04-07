@@ -6,29 +6,15 @@ class TestImages {
 
   preload() {
     this.testImages[0] = {
-      src: loadImage('./img/wip/car-left.png'),
+      src: loadImage('./img/wip/trees/tree_01.png'),
     };
     this.testImages[1] = {
-      src: loadImage('./img/wip/car-right.png'),
+      src: loadImage('./img/wip/trees/tree_02.png'),
     };
     this.testImages[2] = {
-      src: loadImage('./img/wip/car2-left.png'),
+      src: loadImage('./img/wip/trees/tree_46.png'),
     };
-    this.testImages[3] = {
-      src: loadImage('./img/wip/car2-right.png'),
-    };
-    this.testImages[4] = {
-      src: loadImage('./img/wip/tree.png'),
-    };
-    this.testImages[5] = {
-      src: loadImage('./img/wip/more/car-truck1.png'),
-    };
-    this.testImages[6] = {
-      src: loadImage('./img/wip/more/car2scaled.png'),
-    };
-    this.testImages[7] = {
-      src: loadImage('./img/wip/more/spr_limo_0.png'),
-    };
+
     this.testImages[8] = {
       src: loadImage('./img/wip/more/car2.png'),
       scaleW: 38,
@@ -36,7 +22,7 @@ class TestImages {
     };
 
     this.testImages[9] = {
-      src: loadImage('./img/wip/wizard.bmp'),
+      src: loadImage('./img/wip/trees/tree_55.png'),
       aa: true,
     };
 
@@ -44,7 +30,7 @@ class TestImages {
       src: loadImage('./img/wip/road.png'),
     };
 
-    this.testimg = loadImage('./img/wip/other/fuel.png');
+    this.testimg = loadImage('./img/wip/trees/tree_13.png');
   }
 
   setup() {

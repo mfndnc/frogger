@@ -3,6 +3,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: #f2f7f1;
 }
 
 h1 {
