@@ -3,39 +3,39 @@ class Obstacles {
     this.safeY;
     this.imagesRef = {
       allcars: [
-        { src: './img/truck4rl.png', rllr: 'rl', randBoost: 1 },
-        { src: './img/truck5rl.png', rllr: 'rl', randBoost: 1 },
-        { src: './img/car2rl.png', rllr: 'rl', randBoost: 1 },
-        { src: './img/car3rl.png', rllr: 'rl', randBoost: 1 },
-        { src: './img/car5rl.png', rllr: 'rl', randBoost: 1 },
-        { src: './img/car6rl.png', rllr: 'rl', randBoost: 1 },
-        { src: './img/car8rl.png', rllr: 'rl', randBoost: 1 },
-        { src: './img/car9rl.png', rllr: 'rl', randBoost: 1 },
+        { src: './img/truck4rl.png', rllr: 'rl', randBoost: 0.2 },
+        { src: './img/truck5rl.png', rllr: 'rl', randBoost: 0.2 },
+        { src: './img/car2rl.png', rllr: 'rl', randBoost: 0.5 },
+        { src: './img/car3rl.png', rllr: 'rl', randBoost: 0.5 },
+        { src: './img/car5rl.png', rllr: 'rl', randBoost: 0.5 },
+        { src: './img/car6rl.png', rllr: 'rl', randBoost: 0.5 },
+        { src: './img/car8rl.png', rllr: 'rl', randBoost: 0.9 },
+        { src: './img/car9rl.png', rllr: 'rl', randBoost: 0.5 },
 
-        { src: './img/truck4lr.png', rllr: 'lr', randBoost: 1 },
-        { src: './img/truck5lr.png', rllr: 'lr', randBoost: 1 },
-        { src: './img/car2lr.png', rllr: 'lr', randBoost: 1 },
-        { src: './img/car3lr.png', rllr: 'lr', randBoost: 1 },
-        { src: './img/car5lr.png', rllr: 'lr', randBoost: 1 },
-        { src: './img/car6lr.png', rllr: 'lr', randBoost: 1 },
-        { src: './img/car8lr.png', rllr: 'lr', randBoost: 1 },
-        { src: './img/car9lr.png', rllr: 'lr', randBoost: 1 },
+        { src: './img/truck4lr.png', rllr: 'lr', randBoost: 0.2 },
+        { src: './img/truck5lr.png', rllr: 'lr', randBoost: 0.2 },
+        { src: './img/car2lr.png', rllr: 'lr', randBoost: 0.5 },
+        { src: './img/car3lr.png', rllr: 'lr', randBoost: 0.5 },
+        { src: './img/car5lr.png', rllr: 'lr', randBoost: 0.5 },
+        { src: './img/car6lr.png', rllr: 'lr', randBoost: 0.5 },
+        { src: './img/car8lr.png', rllr: 'lr', randBoost: 0.9 },
+        { src: './img/car9lr.png', rllr: 'lr', randBoost: 0.5 },
       ],
       rl: [],
       lr: [],
     };
     this.roadRef = {
       rl: [
-        { speed: 3, laneY: 0, randBoost: 1 },
-        { speed: 2, laneY: 0, randBoost: 1 },
-        { speed: 1.6, laneY: 0, randBoost: 1 },
-        { speed: 1.2, laneY: 0, randBoost: 1 },
+        { speed: 3, laneY: 0, randBoost: 0.8 },
+        { speed: 2, laneY: 0, randBoost: 0.6 },
+        { speed: 1.6, laneY: 0, randBoost: 0.5 },
+        { speed: 1.2, laneY: 0, randBoost: 0.2 },
       ],
       lr: [
-        { speed: 1.5, laneY: 0, randBoost: 1 },
-        { speed: 1, laneY: 0, randBoost: 1 },
-        { speed: 2, laneY: 0, randBoost: 1 },
-        { speed: 1.5, laneY: 0, randBoost: 1 },
+        { speed: 1.5, laneY: 0, randBoost: 0.5 },
+        { speed: 1, laneY: 0, randBoost: 0.3 },
+        { speed: 2, laneY: 0, randBoost: 0.8 },
+        { speed: 1.5, laneY: 0, randBoost: 0.5 },
       ],
     };
 
@@ -72,6 +72,12 @@ class Obstacles {
   // game
   randomCarPicker(rllr) {
     if (rllr) {
+      let randomLane = this.pick(this.roadRef[rllr]);
+      let randomCar = this.pick(this.imagesRef[rllr]);
+      randomCar.iniY = randomLane.laneY;
+      randomCar.offsetSpeed = randomLane.speed;
+      return new Obstacle(randomCar);
+
       let randomIndex = Math.floor(Math.random() * this.imagesRef[rllr].length);
       let randomObstable = this.imagesRef[rllr][randomIndex];
       let randomIniYIndex = Math.floor(
@@ -115,4 +121,15 @@ class Obstacles {
     }
     return true;
   }
+
+  // testing a new method to pick random based on randBoost - see idea from here: https://observablehq.com/@nextlevelshit/rejection-sampling-in-javascript
+  weight = function (arr) {
+    return [].concat(
+      ...arr.map((obj) => Array(Math.ceil(obj.randBoost * 100)).fill(obj))
+    );
+  };
+  pick = function (arr) {
+    let weighted = this.weight(arr);
+    return weighted[Math.floor(Math.random() * weighted.length)];
+  };
 }
