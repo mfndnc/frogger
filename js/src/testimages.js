@@ -27,7 +27,21 @@ class TestImages {
     };
 
     this.testImages[11] = {
-      src: loadImage('./img/wip/road.png'),
+      src: loadImage('./img/wip/building-block-assets/stone_brick_alt.png'),
+    };
+    this.testImages[12] = {
+      src: loadImage('./img/wip/building-block-assets/stonebrickwall.png'),
+    };
+    this.testImages[19] = {
+      src: loadImage('./img/wip/building-block-assets/Brickwallbrick.png'),
+      aa: true,
+    };
+
+    this.testImages[21] = {
+      src: loadImage('./img/wip/water_00_strip13.png'),
+    };
+    this.testImages[22] = {
+      src: loadImage('./img/wip/water16x16.gif'),
     };
 
     this.testimg = loadImage('./img/wip/trees/tree_13.png');
