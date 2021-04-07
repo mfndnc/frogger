@@ -1,6 +1,5 @@
 class Obstacles {
   constructor() {
-    this.safeY;
     this.imagesRef = {
       allcars: [
         { src: './img/truck4rl.png', rllr: 'rl', randBoost: 0.2 },
@@ -109,12 +108,7 @@ class Obstacles {
 
     return arr[1];
   }
-  setSavePosition(num) {
-    this.safeY = num;
-  }
-  reachedGoal(frog) {
-    return frog.y < this.safeY;
-  }
+
   avoidedCollision(frog) {
     for (let obstacle of this.traffic) {
       if (!obstacle.avoidedCollision(frog)) return false;

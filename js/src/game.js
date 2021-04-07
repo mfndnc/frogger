@@ -2,6 +2,7 @@ class Game {
   constructor() {
     this.baseRoad = new BaseRoad();
     this.obstacles = new Obstacles();
+    this.tokens = new Tokens();
     this.frog = new Frog();
     this.score = new Score();
 
@@ -11,7 +12,7 @@ class Game {
 
     this.testingImagesInsteadOfGame = false;
     // ALL BELOW CAN BE DELETED SOON
-    this.testingImagesInsteadOfGame = true;
+    this.testingImagesInsteadOfGame = false;
     this.testImages = new TestImages();
   }
   preload() {
@@ -22,6 +23,7 @@ class Game {
     // ALL ABOVE CAN BE DELETED SOON
     this.baseRoad.preload();
     this.obstacles.preload();
+    this.tokens.preload();
     this.frog.preload();
     this.score.preload();
   }
@@ -34,13 +36,16 @@ class Game {
     // ALL ABOVE CAN BE DELETED SOON
     this.baseRoad.setup();
     this.obstacles.setup();
+    this.tokens.setup();
     this.frog.setup();
     this.score.setup();
 
     let b = this.obstacles.roadPosition(this.baseRoad.signalRoadPosition());
     let c = this.frog.getHeight();
     this.safeY = b - c - 20;
-    this.obstacles.setSavePosition(this.safeY);
+    /// *****TMP TMP TMP TMP
+    this.safeY = 160;
+    this.score.setSavePosition(this.safeY);
   }
 
   draw() {
@@ -51,9 +56,9 @@ class Game {
 
       background('#567d46');
       this.baseRoad.draw();
-
+      this.obstacles.draw();
+      this.tokens.draw();
       if (this.frogappears) {
-        this.obstacles.draw();
         this.frog.draw();
         // detection part
         this.evaluateFrogJouney();
@@ -92,7 +97,7 @@ class Game {
       this.evalueateRestartEndGame();
     }
     // process the frog reached its goal
-    if (this.obstacles.reachedGoal(this.frog) && this.frogappears) {
+    if (this.score.reachedGoal(this.frog) && this.frogappears) {
       this.score.reachedTarget();
       this.evalueateRestartEndGame();
     }

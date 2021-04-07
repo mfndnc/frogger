@@ -42,8 +42,21 @@ class TestImages {
     };
     this.testImages[22] = {
       src: loadImage('./img/wip/water16x16.gif'),
+      aa: true,
     };
 
+    this.testImages[31] = {
+      src: loadImage('./img/wip/woodsmalls.png'),
+      aa: true,
+    };
+    this.testImages[41] = {
+      src: loadImage('./img/wip/woodmediums.png'),
+      aa: true,
+    };
+    this.testImages[51] = {
+      src: loadImage('./img/wip/woodbigs.png'),
+      aa: true,
+    };
     this.testimg = loadImage('./img/wip/trees/tree_13.png');
   }
 
@@ -65,7 +78,7 @@ class TestImages {
       } else {
         x += img.src.width;
       }
-      console.log(img, img.src.width);
+      console.log(img, img.src.width, img.src.height);
     });
 
     // single

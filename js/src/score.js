@@ -1,5 +1,6 @@
 class Score {
   constructor() {
+    this.safeY = 0;
     this.score = 0;
     this.lives = 3;
     this.textHeight = 45;
@@ -22,6 +23,14 @@ class Score {
     text('Lives:', 300, this.textHeight);
     text(this.lives, 400, this.textHeight);
   }
+
+  setSavePosition(num) {
+    this.safeY = num;
+  }
+  reachedGoal(frog) {
+    return frog.y < this.safeY;
+  }
+
   reachedTarget() {
     this.score++;
     this.shouldLooseALive();
