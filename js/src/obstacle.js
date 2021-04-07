@@ -1,6 +1,6 @@
 class Obstacle {
   constructor(info) {
-    this.name = info.name;
+    this.checkin = info.checkin;
     this.src = info.src;
     this.rllr = info.rllr;
     this.img = info.img;
@@ -41,7 +41,7 @@ class Obstacle {
     if (dist(obstacleX, obstacleY, frogX, frogY) > this.collisionDist) {
       return true;
     } else {
-      console.log('colision', this.name);
+      console.log('colision', this.checkin);
       return false;
     }
   }
