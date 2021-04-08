@@ -1,7 +1,7 @@
 class Game {
   constructor() {
-    this.timerTrick = 3;
-    this.timersecond = 2;
+    this.timerTrick = 10;
+    this.timersecond = 5;
     this.baseRoad = new BaseRoad();
     this.baseRiver = new BaseRiver();
     this.obstacles = new Obstacles();

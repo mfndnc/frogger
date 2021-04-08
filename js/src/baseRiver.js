@@ -1,7 +1,7 @@
 class BaseRiver {
   constructor() {
     this.imgName = './img/water.png';
-    this.imgSideName = './img/wip/tree_24.png';
+    this.imgSideName = './img/tree_24.png';
     this.iniX = 0;
     this.iniY = 0;
     this.repeatX;
