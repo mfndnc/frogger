@@ -14,9 +14,9 @@ class Frog {
     this.x = this.iniX;
     this.y = this.iniY;
 
+    this.keyArrowSpeedIni = 1.5;
     this.jumpBehavior = false;
     this.woodSpeed = 0;
-    this.keyArrowSpeedIni = 1.5;
     this.keyArrowSpeedLR = this.keyArrowSpeedIni;
     this.keyArrowSpeedTB = this.keyArrowSpeedIni;
   }
@@ -92,11 +92,41 @@ class Frog {
     this.keyArrowSpeedTB = this.keyArrowSpeedIni;
   }
 
-  getHeight() {
-    return this.height;
+  updateRefs(gameRefs) {
+    gameRefs.frogHeight = this.height;
+    gameRefs.frogWidth = this.width;
+    return gameRefs;
   }
   resetPosition() {
     this.x = this.iniX;
     this.y = this.iniY;
+    this.jumpBehavior = false;
+    this.woodSpeed = 0;
+    this.keyArrowSpeedLR = this.keyArrowSpeedIni;
+    this.keyArrowSpeedTB = this.keyArrowSpeedIni;
+  }
+
+  isInsideJumpArea(gameRefs) {
+    if (
+      this.y < gameRefs.beginJumpArea - gameRefs.frogHeight &&
+      this.y > gameRefs.endJumpArea
+    ) {
+      this.jumpBehavior = true;
+      // this.woodSpeed = 0;
+      this.keyArrowSpeedLR = 1;
+      this.keyArrowSpeedTB = 1;
+      return true;
+    } else {
+      this.jumpBehavior = false;
+      this.woodSpeed = 0;
+      this.keyArrowSpeedLR = this.keyArrowSpeedIni;
+      this.keyArrowSpeedTB = this.keyArrowSpeedIni;
+      return false;
+    }
+
+    return (
+      this.frog.y < this.gameRefs.beginJumpArea - this.gameRefs.frogHeight &&
+      this.frog.y > this.gameRefs.endJumpArea
+    );
   }
 }

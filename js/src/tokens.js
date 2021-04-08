@@ -4,13 +4,16 @@ class Tokens {
     this.iniY = 200;
     this.endY;
     this.imagesRef = {
-      logs: [{ src: './img/woodbigs.png', speed: 1, t: 174, frame: 300 }],
+      logs: [
+        { src: './img/woodbigs.png', speed: 1, t: 174, frame: 300 },
+        { src: './img/woodsmls.png', speed: 1.2, t: 94, frame: 150 },
+      ],
     };
     /* 
         { src: './img/woodbigs.png', speed: 2, t: 174, frame: 190 },
         { src: './img/woodsmls.png', speed: 1.2, t: 94, frame: 150 },
         { src: './img/woodmeds.png', speed: 1.5, t: 135, frame: 210 },
-        { src: './img/woodbigs.png', speed: 1.7, t: 174, frame: 190 },
+        { src: './img/woodbigs.png', speed: 1.7, t: 174, frame: 190 },        
     */
 
     /*

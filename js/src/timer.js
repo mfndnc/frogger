@@ -5,6 +5,7 @@ class Timer {
   }
   draw() {
     background('#CCDEC5');
+
     textAlign(CENTER, CENTER);
     textSize(100);
 

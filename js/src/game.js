@@ -56,19 +56,17 @@ class Game {
     this.frog.setup();
     this.score.setup();
 
-    this.gameRefs.frogHeight = this.frog.getHeight();
-
-    console.log('line58', this.gameRefs);
     this.gameRefs = this.tokens.updatePositions(
       this.baseRiver.getXYWH(),
       this.gameRefs
     );
-    console.log('line63', this.gameRefs);
 
     this.gameRefs = this.obstacles.updatePositions(
       this.baseRoad.getXYWH(),
       this.gameRefs
     );
+
+    this.gameRefs = this.frog.updateRefs(this.gameRefs);
     console.log('line69', this.gameRefs);
     this.gameRefs.targetY =
       this.gameRefs.endRoad - this.gameRefs.frogHeight - 20;
@@ -88,8 +86,27 @@ class Game {
       background('#567d46');
       this.baseRoad.draw();
 
-      // tmp tmp tmp BEGIN - drawing visual helps
-      // tmp tmp tmp END - drawing visual helps
+      // *********** tmp tmp tmp BEGIN - drawing visual helps
+      stroke('red');
+      fill('red');
+      rect(
+        0,
+        this.gameRefs.endJumpArea,
+        WIDTH,
+        this.gameRefs.beginJumpArea - this.gameRefs.endJumpArea
+      );
+      stroke('yellow');
+      fill('yellow');
+      rect(
+        0,
+        this.gameRefs.endRiver,
+        WIDTH,
+        this.gameRefs.beginRiver - this.gameRefs.endRiver
+      );
+
+      stroke('white');
+      fill('white');
+      // *********** tmp tmp tmp END - drawing visual helps
 
       this.obstacles.draw();
       this.tokens.draw();
@@ -127,6 +144,20 @@ class Game {
     }
   }
 
+  getFrogOutsideCanvas() {
+    return (
+      this.frog.x < this.gameRefs.leftMost - this.gameRefs.frogWidth ||
+      this.frog.x > this.gameRefs.rightMost
+    );
+  }
+  getFrogInsideJumpArea() {
+    // NOT USED
+    return (
+      this.frog.y < this.gameRefs.beginJumpArea - this.gameRefs.frogHeight &&
+      this.frog.y > this.gameRefs.endJumpArea
+    );
+  }
+
   evaluateFrogJouney() {
     // change the order so it has less checks to do
     // ie, is frog in water region (bigger then river itself)
@@ -134,26 +165,38 @@ class Game {
     // maybe start with is frog on target so the other are not done
     // add if frog is outside the canvas
 
-    // process frog hit water
-    const checkFrogOnLog = this.tokens.jumpSucceed(this.frog);
-    if (checkFrogOnLog === false && this.frogappears) {
-      console.log('dsadsad');
-      //this.score.shouldLooseALive();
-      //this.evalueateRestartEndGame();
-    } else if (checkFrogOnLog === true && this.frogappears) {
-      this.frog.isNotOnLog();
-    } else {
-      this.frog.isOnLog(checkFrogOnLog);
-    }
-    // process frog hit a car
-    if (!this.obstacles.avoidedCollision(this.frog) && this.frogappears) {
-      this.score.shouldLooseALive();
-      this.evalueateRestartEndGame();
-    }
-    // process the frog reached its goal
-    if (this.score.getReachedTarget(this.frog) && this.frogappears) {
+    if (this.frogappears && this.score.getReachedTarget(this.frog)) {
+      // process the frog reached its goal
+      console.log('EVAL FROG getReachedTarget', this.frog.y);
       this.score.setReachedTarget();
       this.evalueateRestartEndGame();
+    } else if (this.frogappears && this.getFrogOutsideCanvas()) {
+      // process frog went outside canvas
+      this.score.shouldLooseALive();
+      this.evalueateRestartEndGame();
+    } else if (this.frogappears && this.frog.isInsideJumpArea(this.gameRefs)) {
+      // process frog is inside jump area - an area a bit bigger than the river
+
+      console.log('EVAL FROG ', this.frog.y);
+
+      // process frog hit water
+      const checkFrogOnLog = this.tokens.jumpSucceed(this.frog);
+      if (checkFrogOnLog === false && this.frogappears) {
+        console.log('dsadsad');
+        //this.score.shouldLooseALive();
+        //this.evalueateRestartEndGame();
+      } else if (checkFrogOnLog === true && this.frogappears) {
+        this.frog.isNotOnLog();
+      } else {
+        this.frog.isOnLog(checkFrogOnLog);
+      }
+    } else {
+      // frog behaves normally, ie, should check if it gets hit
+      // process frog hit a car
+      if (this.frogappears && !this.obstacles.avoidedCollision(this.frog)) {
+        this.score.shouldLooseALive();
+        this.evalueateRestartEndGame();
+      }
     }
   }
 }
