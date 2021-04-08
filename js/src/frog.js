@@ -159,10 +159,5 @@ class Frog {
       this.keyArrowSpeed = this.keyArrowSpeedIni;
       return false;
     }
-
-    return (
-      this.frog.y < this.gameRefs.beginJumpArea - this.gameRefs.frogHeight &&
-      this.frog.y > this.gameRefs.endJumpArea
-    );
   }
 }

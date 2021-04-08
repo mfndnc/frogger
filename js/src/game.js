@@ -1,7 +1,7 @@
 class Game {
   constructor() {
     this.timerTrick = 10;
-    this.timersecond = 5;
+    this.timersecond = 3;
     this.baseRoad = new BaseRoad();
     this.baseRiver = new BaseRiver();
     this.obstacles = new Obstacles();
@@ -22,7 +22,6 @@ class Game {
       frogHeight: 0,
     };
 
-    this.safeY = 0;
     this.frogappears = false;
     this.gameOverAndTimer;
 
@@ -67,7 +66,7 @@ class Game {
     );
 
     this.gameRefs = this.frog.updateRefs(this.gameRefs);
-    console.log('line69', this.gameRefs);
+    //console.log('line69', this.gameRefs);
     this.gameRefs.targetY =
       this.gameRefs.endRoad - this.gameRefs.frogHeight - 20;
 
@@ -129,7 +128,6 @@ class Game {
           this.timerTrick = this.timersecond;
         }
       }
-
       this.score.draw();
     }
   }

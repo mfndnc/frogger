@@ -14,7 +14,7 @@ class Tokens {
       ],
     };
     /* 
-         { src: './img/woodbigs.png', speed: 2, t: 174, frame: 190 },
+        { src: './img/woodbigs.png', speed: 2, t: 174, frame: 190 },
         { src: './img/woodsmls.png', speed: 1.2, t: 94, frame: 150 },
         { src: './img/woodmeds.png', speed: 1.5, t: 135, frame: 210 },
         { src: './img/woodbigs.png', speed: 1.7, t: 174, frame: 190 },   
@@ -70,7 +70,6 @@ class Tokens {
     });
   }
   // game
-
   jumpSucceed(frog) {
     if (frog.y < this.iniY || frog.y > this.endY) return true;
     for (let token of this.traffic) {
@@ -78,7 +77,6 @@ class Tokens {
     }
     return false;
   }
-
   updatePositions(gameRefs) {
     gameRefs.beginRiver = this.endY;
     gameRefs.endRiver = this.iniY;
