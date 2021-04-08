@@ -8,8 +8,8 @@ class Frog {
     this.iniY = HEIGHT - 45;
 
     // remove. only for testing
-    this.iniX = 480;
-    this.iniY = 320;
+    //this.iniX = 480;
+    //this.iniY = 320;
 
     this.x = this.iniX;
     this.y = this.iniY;

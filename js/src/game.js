@@ -47,7 +47,7 @@ class Game {
     this.safeY = b - c - 20;
     /// *****TMP TMP TMP TMP
     this.safeY = 160;
-    this.score.setSavePosition(this.safeY);
+    this.score.setTargetYPosition(this.safeY);
   }
 
   draw() {
@@ -95,6 +95,11 @@ class Game {
   }
 
   evaluateFrogJouney() {
+    // change the order so it has less checks to do
+    // ie, is frog in water region (bigger then river itself)
+    // or in car region
+    // maybe start with is frog on target so the other are not done
+
     // process frog hit water
     const checkFrogOnLog = this.tokens.jumpSucceed(this.frog);
     if (checkFrogOnLog === false && this.frogappears) {
@@ -112,8 +117,8 @@ class Game {
       this.evalueateRestartEndGame();
     }
     // process the frog reached its goal
-    if (this.score.reachedGoal(this.frog) && this.frogappears) {
-      this.score.reachedTarget();
+    if (this.score.getReachedTarget(this.frog) && this.frogappears) {
+      this.score.setReachedTarget();
       this.evalueateRestartEndGame();
     }
   }

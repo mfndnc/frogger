@@ -24,14 +24,14 @@ class Score {
     text(this.lives, 400, this.textHeight);
   }
 
-  setSavePosition(num) {
+  setTargetYPosition(num) {
     this.safeY = num;
   }
-  reachedGoal(frog) {
+  getReachedTarget(frog) {
     return frog.y < this.safeY;
   }
 
-  reachedTarget() {
+  setReachedTarget() {
     this.score++;
     this.shouldLooseALive();
   }
