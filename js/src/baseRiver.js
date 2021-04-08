@@ -36,10 +36,8 @@ class BaseRiver {
       image(deco.img, deco.x, this.iniY + deco.y)
     );
   }
-  //image(deco.img, deco.x, this.iniY + deco.y)
-  //console.log(this.iniY, deco.y)
   // game
-  signalRoadPosition() {
+  getXYWH() {
     return [this.iniX, this.iniY, this.width, this.height];
   }
 }

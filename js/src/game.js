@@ -3,10 +3,24 @@ class Game {
     this.timerTrick = 3;
     this.timersecond = 2;
     this.baseRoad = new BaseRoad();
+    this.baseRiver = new BaseRiver();
     this.obstacles = new Obstacles();
     this.tokens = new Tokens();
     this.frog = new Frog();
     this.score = new Score();
+
+    this.gameRefs = {
+      leftMost: 0,
+      rightMost: WIDTH,
+      targetY: 0,
+      beginRiver: 0,
+      endRiver: 0,
+      beginJumpArea: 0,
+      endJumpArea: 0,
+      endRoad: 0,
+      beginRoad: 0,
+      frogHeight: 0,
+    };
 
     this.safeY = 0;
     this.frogappears = false;
@@ -42,12 +56,27 @@ class Game {
     this.frog.setup();
     this.score.setup();
 
-    let b = this.obstacles.roadPosition(this.baseRoad.signalRoadPosition());
-    let c = this.frog.getHeight();
-    this.safeY = b - c - 20;
+    this.gameRefs.frogHeight = this.frog.getHeight();
+
+    console.log('line58', this.gameRefs);
+    this.gameRefs = this.tokens.updatePositions(
+      this.baseRiver.getXYWH(),
+      this.gameRefs
+    );
+    console.log('line63', this.gameRefs);
+
+    this.gameRefs = this.obstacles.updatePositions(
+      this.baseRoad.getXYWH(),
+      this.gameRefs
+    );
+    console.log('line69', this.gameRefs);
+    this.gameRefs.targetY =
+      this.gameRefs.endRoad - this.gameRefs.frogHeight - 20;
+
+    console.log(this.gameRefs.endRoad);
     /// *****TMP TMP TMP TMP
-    this.safeY = 160;
-    this.score.setTargetYPosition(this.safeY);
+    this.gameRefs.targetY = 150;
+    this.score.setTargetYPosition(this.gameRefs.targetY);
   }
 
   draw() {
@@ -58,6 +87,10 @@ class Game {
 
       background('#567d46');
       this.baseRoad.draw();
+
+      // tmp tmp tmp BEGIN - drawing visual helps
+      // tmp tmp tmp END - drawing visual helps
+
       this.obstacles.draw();
       this.tokens.draw();
       if (this.frogappears) {
@@ -99,6 +132,7 @@ class Game {
     // ie, is frog in water region (bigger then river itself)
     // or in car region
     // maybe start with is frog on target so the other are not done
+    // add if frog is outside the canvas
 
     // process frog hit water
     const checkFrogOnLog = this.tokens.jumpSucceed(this.frog);

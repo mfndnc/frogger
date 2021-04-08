@@ -89,7 +89,7 @@ class Obstacles {
     }
     return null;
   }
-  roadPosition(arr) {
+  updatePositions(arr, gameRefs) {
     // only called during setup so initial values can be correctly evaluated
     let offset = 9;
     let delta;
@@ -106,7 +106,10 @@ class Obstacles {
     this.roadRef.lr[2].laneY = this.roadRef.lr[0].laneY + delta;
     this.roadRef.lr[3].laneY = this.roadRef.lr[1].laneY + delta;
 
-    return arr[1];
+    gameRefs.endRoad = arr[1];
+    gameRefs.beginRoad = arr[1] + arr[3] * 2;
+
+    return gameRefs;
   }
 
   avoidedCollision(frog) {

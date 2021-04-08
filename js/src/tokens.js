@@ -58,4 +58,13 @@ class Tokens {
     }
     return false;
   }
+
+  updatePositions(arr, gameRefs) {
+    gameRefs.beginRiver = this.endY;
+    gameRefs.endRiver = this.iniY;
+    gameRefs.beginJumpArea = this.endY + 25;
+    gameRefs.endJumpArea = this.iniY - 25;
+
+    return gameRefs;
+  }
 }
