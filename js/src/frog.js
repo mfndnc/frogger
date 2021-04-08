@@ -8,8 +8,8 @@ class Frog {
     this.iniY = HEIGHT - 45;
 
     // remove. only for testing
-    this.iniX = 480;
-    this.iniY = 320;
+    this.iniX = 20; // 480
+    this.iniY = 320; //400 320 205
 
     this.x = this.iniX;
     this.y = this.iniY;
@@ -17,8 +17,8 @@ class Frog {
     this.keyArrowSpeedIni = 1.5;
     this.jumpBehavior = false;
     this.woodSpeed = 0;
-    this.keyArrowSpeedLR = this.keyArrowSpeedIni;
-    this.keyArrowSpeedTB = this.keyArrowSpeedIni;
+    this.jumpYsforFrog = [];
+    this.keyArrowSpeed = this.keyArrowSpeedIni;
   }
   //  p5 equiv funcs
   preload() {
@@ -31,12 +31,13 @@ class Frog {
   draw() {
     this.x += this.woodSpeed;
     image(this.img, this.x, this.y);
-
-    if (keyIsDown(UP_ARROW)) {
-      this.moveUp();
-    }
-    if (keyIsDown(DOWN_ARROW)) {
-      this.moveDown();
+    if (!this.jumpBehavior) {
+      if (keyIsDown(UP_ARROW)) {
+        this.moveUp();
+      }
+      if (keyIsDown(DOWN_ARROW)) {
+        this.moveDown();
+      }
     }
     if (keyIsDown(LEFT_ARROW)) {
       this.moveLeft();
@@ -59,42 +60,67 @@ class Frog {
       this.moveRight(); //39
     }
   }
+
+  // basics
+  moveLimited(direction) {
+    // rewrite this for better understanding
+    const frogArrayindex = this.jumpYsforFrog.indexOf(this.y);
+    if (frogArrayindex < 0) {
+      if (direction > 0 && this.y < this.jumpYsforFrog[2]) {
+        const frogArrayindex2 = this.jumpYsforFrog.findIndex(
+          (el) => el < this.y
+        );
+        return this.jumpYsforFrog[frogArrayindex2 + direction];
+      }
+      if (direction < 0 && this.y > this.jumpYsforFrog[2]) {
+        const frogArrayindex2 = this.jumpYsforFrog.findIndex(
+          (el) => el > this.y
+        );
+        return this.jumpYsforFrog[frogArrayindex2 + direction];
+      }
+      return this.y + direction * 3;
+    } else {
+      return this.jumpYsforFrog[frogArrayindex + direction];
+    }
+  }
+
   // basics
   moveUp() {
-    this.y -= this.keyArrowSpeedTB;
+    if (this.jumpBehavior) {
+      this.y = this.moveLimited(-1);
+    } else {
+      this.y -= this.keyArrowSpeed;
+    }
   }
   moveDown() {
-    this.y += this.keyArrowSpeedTB;
+    if (this.jumpBehavior) {
+      this.y = this.moveLimited(1);
+    } else {
+      this.y += this.keyArrowSpeed;
+    }
   }
   moveLeft() {
-    this.x -= this.keyArrowSpeedLR;
+    this.x -= this.keyArrowSpeed;
   }
   moveRight() {
-    this.x += this.keyArrowSpeedLR;
+    this.x += this.keyArrowSpeed;
   }
 
   // game
   isOnLog(wood) {
-    console.log(wood);
+    //console.log('isOnLog', wood);
     this.woodSpeed = wood.speed;
   }
   isNotOnLog() {
     this.woodSpeed = 0;
   }
-  isInJumpArea() {
-    this.jumpBehavior = true;
-    this.keyArrowSpeedLR = 1;
-    this.keyArrowSpeedTB = 4;
-  }
-  isOutSideJumpArea() {
-    this.jumpBehavior = false;
-    this.keyArrowSpeedLR = this.keyArrowSpeedIni;
-    this.keyArrowSpeedTB = this.keyArrowSpeedIni;
-  }
+  isNotOnWater() {}
 
   updateRefs(gameRefs) {
+    console.log('inside frog gameRefs', gameRefs);
     gameRefs.frogHeight = this.height;
     gameRefs.frogWidth = this.width;
+    this.jumpYsforFrog = gameRefs.jumpYsforFrog;
     return gameRefs;
   }
   resetPosition() {
@@ -102,8 +128,7 @@ class Frog {
     this.y = this.iniY;
     this.jumpBehavior = false;
     this.woodSpeed = 0;
-    this.keyArrowSpeedLR = this.keyArrowSpeedIni;
-    this.keyArrowSpeedTB = this.keyArrowSpeedIni;
+    this.keyArrowSpeed = this.keyArrowSpeedIni;
   }
 
   isInsideJumpArea(gameRefs) {
@@ -112,15 +137,12 @@ class Frog {
       this.y > gameRefs.endJumpArea
     ) {
       this.jumpBehavior = true;
-      // this.woodSpeed = 0;
-      this.keyArrowSpeedLR = 1;
-      this.keyArrowSpeedTB = 1;
+      this.keyArrowSpeed = 1;
       return true;
     } else {
       this.jumpBehavior = false;
       this.woodSpeed = 0;
-      this.keyArrowSpeedLR = this.keyArrowSpeedIni;
-      this.keyArrowSpeedTB = this.keyArrowSpeedIni;
+      this.keyArrowSpeed = this.keyArrowSpeedIni;
       return false;
     }
 

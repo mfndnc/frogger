@@ -31,11 +31,12 @@ class Token {
     return this.x >= -this.width && this.x <= WIDTH;
   }
   jumpSucceed(frog) {
+    //console.log('jumpSucceed', frog.x, frog.y, this.x, this.y);
     if (
       frog.x > this.x &&
-      frog.y >= this.y - 20 &&
-      frog.x < this.x + this.width - 20 &&
-      frog.y <= this.y - frog.height
+      frog.y >= this.y &&
+      frog.x < this.x + this.width - frog.width &&
+      frog.y <= this.y + frog.height
     ) {
       //console.log('on top of wood', frog.y, this.y);
       return true;

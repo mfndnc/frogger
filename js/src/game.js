@@ -101,7 +101,7 @@ class Game {
         0,
         this.gameRefs.endRiver,
         WIDTH,
-        this.gameRefs.beginRiver - this.gameRefs.endRiver
+        this.gameRefs.beginRiver - this.gameRefs.endRiv
       );
 
       stroke('white');
@@ -177,10 +177,19 @@ class Game {
     } else if (this.frogappears && this.frog.isInsideJumpArea(this.gameRefs)) {
       // process frog is inside jump area - an area a bit bigger than the river
 
-      console.log('EVAL FROG ', this.frog.y);
+      //console.log('EVAL FROG ', this.frog.y);
 
       // process frog hit water
       const checkFrogOnLog = this.tokens.jumpSucceed(this.frog);
+      if (checkFrogOnLog === true && this.frogappears) {
+        this.frog.isNotOnWater();
+      } else if (checkFrogOnLog === false && this.frogappears) {
+        this.frog.isNotOnLog();
+      } else {
+        this.frog.isOnLog(checkFrogOnLog);
+      }
+
+      /*
       if (checkFrogOnLog === false && this.frogappears) {
         console.log('dsadsad');
         //this.score.shouldLooseALive();
@@ -189,7 +198,7 @@ class Game {
         this.frog.isNotOnLog();
       } else {
         this.frog.isOnLog(checkFrogOnLog);
-      }
+      }*/
     } else {
       // frog behaves normally, ie, should check if it gets hit
       // process frog hit a car
