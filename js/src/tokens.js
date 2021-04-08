@@ -7,8 +7,10 @@ class Tokens {
     this.frogYpositionDelta = 5;
     this.imagesRef = {
       logs: [
-        { src: './img/woodbigs.png', speed: 1, t: 174, frame: 300 },
+        { src: './img/woodbigs.png', speed: 2, t: 174, frame: 190 },
         { src: './img/woodsmls.png', speed: 1.2, t: 94, frame: 150 },
+        { src: './img/woodmeds.png', speed: 1.5, t: 135, frame: 210 },
+        { src: './img/woodbigs.png', speed: 1.7, t: 174, frame: 190 },
       ],
     };
     /* 
@@ -45,7 +47,7 @@ class Tokens {
     );
     this.endY =
       this.iniY + this.imagesRef.logs.length * this.eachWoodDelta - 10;
-    console.log('this.endY', this.endY, this.frogYpositionsArray);
+    //console.log('this.endY', this.endY, this.frogYpositionsArray);
   }
   setup() {
     this.traffic.forEach(function (token) {
@@ -70,8 +72,6 @@ class Tokens {
   // game
 
   jumpSucceed(frog) {
-    if (frog.y + frog.heigth < this.iniY) console.log('op1', frog.y, this.iniY);
-    if (frog.y - frog.heigth > this.endY) console.log('op2', frog.y, this.endY);
     if (frog.y < this.iniY || frog.y > this.endY) return true;
     for (let token of this.traffic) {
       if (token.jumpSucceed(frog)) return token;
@@ -79,7 +79,7 @@ class Tokens {
     return false;
   }
 
-  updatePositions(arr, gameRefs) {
+  updatePositions(gameRefs) {
     gameRefs.beginRiver = this.endY;
     gameRefs.endRiver = this.iniY;
     gameRefs.beginJumpArea = this.endY + 25;

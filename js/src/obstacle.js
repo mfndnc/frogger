@@ -41,7 +41,7 @@ class Obstacle {
     if (dist(obstacleX, obstacleY, frogX, frogY) > this.collisionDist) {
       return true;
     } else {
-      console.log('colision', this.checkin);
+      //console.log('colision', this.checkin);
       return false;
     }
   }

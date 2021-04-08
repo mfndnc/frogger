@@ -16,15 +16,6 @@ class Token {
   draw() {
     this.x += this.speed;
     //console.log('Token', this.img, this.x, this.y);
-
-    // *********** tmp tmp tmp BEGIN - drawing visual helps
-    stroke('blue');
-    fill('blue');
-    rect(this.x, this.y, this.width, this.height);
-
-    stroke('white');
-    fill('white');
-    // *********** tmp tmp tmp END - drawing visual helps
     image(this.img, this.x, this.y);
   }
   withinRange() {

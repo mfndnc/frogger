@@ -4,16 +4,17 @@ class Frog {
     this.height;
     this.imgName = './img/frog.png';
     this.img;
-    this.iniX = WIDTH - 400;
+    this.iniX = WIDTH / 2;
     this.iniY = HEIGHT - 45;
 
     // remove. only for testing
-    this.iniX = 20; // 480
-    this.iniY = 320; //400 320 205
+    //this.iniX = 20; // 480
+    //this.iniY = 400; //400 320 205
 
     this.x = this.iniX;
     this.y = this.iniY;
 
+    this.someFrogStatusForLog;
     this.keyArrowSpeedIni = 1.5;
     this.jumpBehavior = false;
     this.woodSpeed = 0;
@@ -108,16 +109,29 @@ class Frog {
 
   // game
   isOnLog(wood) {
-    //console.log('isOnLog', wood);
+    if (this.someFrogStatusForLog != 'isOnLog') {
+      this.someFrogStatusForLog = 'isOnLog';
+      //console.log('isOnLog', wood);
+    }
+
     this.woodSpeed = wood.speed;
   }
   isNotOnLog() {
+    if (this.someFrogStatusForLog != 'isNotOnLog') {
+      this.someFrogStatusForLog = 'isNotOnLog';
+      //console.log('isNotOnLog');
+    }
     this.woodSpeed = 0;
   }
-  isNotOnWater() {}
+  isNotOnWater() {
+    if (this.someFrogStatusForLog != 'isNotOnWater') {
+      this.someFrogStatusForLog = 'isNotOnWater';
+      //console.log('isNotOnWater');
+    }
+  }
 
   updateRefs(gameRefs) {
-    console.log('inside frog gameRefs', gameRefs);
+    //console.log('inside frog gameRefs', gameRefs);
     gameRefs.frogHeight = this.height;
     gameRefs.frogWidth = this.width;
     this.jumpYsforFrog = gameRefs.jumpYsforFrog;

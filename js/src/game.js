@@ -38,6 +38,7 @@ class Game {
 
     // ALL ABOVE CAN BE DELETED SOON
     this.baseRoad.preload();
+    this.baseRiver.preload();
     this.obstacles.preload();
     this.tokens.preload();
     this.frog.preload();
@@ -51,15 +52,14 @@ class Game {
 
     // ALL ABOVE CAN BE DELETED SOON
     this.baseRoad.setup();
+    this.baseRiver.setup();
     this.obstacles.setup();
     this.tokens.setup();
     this.frog.setup();
     this.score.setup();
 
-    this.gameRefs = this.tokens.updatePositions(
-      this.baseRiver.getXYWH(),
-      this.gameRefs
-    );
+    this.gameRefs = this.tokens.updatePositions(this.gameRefs);
+    this.gameRefs = this.baseRiver.updatePositions(this.gameRefs);
 
     this.gameRefs = this.obstacles.updatePositions(
       this.baseRoad.getXYWH(),
@@ -71,9 +71,9 @@ class Game {
     this.gameRefs.targetY =
       this.gameRefs.endRoad - this.gameRefs.frogHeight - 20;
 
-    console.log(this.gameRefs.endRoad);
+    //console.log(this.gameRefs.endRoad);
     /// *****TMP TMP TMP TMP
-    this.gameRefs.targetY = 150;
+    this.gameRefs.targetY = 135;
     this.score.setTargetYPosition(this.gameRefs.targetY);
   }
 
@@ -84,9 +84,9 @@ class Game {
       clear();
 
       background('#567d46');
-      this.baseRoad.draw();
 
       // *********** tmp tmp tmp BEGIN - drawing visual helps
+      /*
       stroke('red');
       fill('red');
       rect(
@@ -101,13 +101,15 @@ class Game {
         0,
         this.gameRefs.endRiver,
         WIDTH,
-        this.gameRefs.beginRiver - this.gameRefs.endRiv
+        this.gameRefs.beginRiver - this.gameRefs.endRiver
       );
-
       stroke('white');
       fill('white');
+*/
       // *********** tmp tmp tmp END - drawing visual helps
 
+      this.baseRoad.draw();
+      this.baseRiver.draw();
       this.obstacles.draw();
       this.tokens.draw();
       if (this.frogappears) {
@@ -159,15 +161,9 @@ class Game {
   }
 
   evaluateFrogJouney() {
-    // change the order so it has less checks to do
-    // ie, is frog in water region (bigger then river itself)
-    // or in car region
-    // maybe start with is frog on target so the other are not done
-    // add if frog is outside the canvas
-
     if (this.frogappears && this.score.getReachedTarget(this.frog)) {
       // process the frog reached its goal
-      console.log('EVAL FROG getReachedTarget', this.frog.y);
+      //console.log('EVAL FROG getReachedTarget', this.frog.y);
       this.score.setReachedTarget();
       this.evalueateRestartEndGame();
     } else if (this.frogappears && this.getFrogOutsideCanvas()) {
@@ -185,20 +181,11 @@ class Game {
         this.frog.isNotOnWater();
       } else if (checkFrogOnLog === false && this.frogappears) {
         this.frog.isNotOnLog();
+        this.score.shouldLooseALive();
+        this.evalueateRestartEndGame();
       } else {
         this.frog.isOnLog(checkFrogOnLog);
       }
-
-      /*
-      if (checkFrogOnLog === false && this.frogappears) {
-        console.log('dsadsad');
-        //this.score.shouldLooseALive();
-        //this.evalueateRestartEndGame();
-      } else if (checkFrogOnLog === true && this.frogappears) {
-        this.frog.isNotOnLog();
-      } else {
-        this.frog.isOnLog(checkFrogOnLog);
-      }*/
     } else {
       // frog behaves normally, ie, should check if it gets hit
       // process frog hit a car
