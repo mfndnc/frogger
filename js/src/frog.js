@@ -13,8 +13,12 @@ class Frog {
 
     this.x = this.iniX;
     this.y = this.iniY;
-    this.speed = 0;
-    this.mouseSpeed = 1.5;
+
+    this.jumpBehavior = false;
+    this.woodSpeed = 0;
+    this.keyArrowSpeedIni = 1.5;
+    this.keyArrowSpeedLR = this.keyArrowSpeedIni;
+    this.keyArrowSpeedTB = this.keyArrowSpeedIni;
   }
   //  p5 equiv funcs
   preload() {
@@ -25,7 +29,7 @@ class Frog {
     this.height = this.img.height;
   }
   draw() {
-    this.x += this.speed;
+    this.x += this.woodSpeed;
     image(this.img, this.x, this.y);
 
     if (keyIsDown(UP_ARROW)) {
@@ -57,24 +61,35 @@ class Frog {
   }
   // basics
   moveUp() {
-    this.y -= this.mouseSpeed;
+    this.y -= this.keyArrowSpeedTB;
   }
   moveDown() {
-    this.y += this.mouseSpeed;
+    this.y += this.keyArrowSpeedTB;
   }
   moveLeft() {
-    this.x -= this.mouseSpeed;
+    this.x -= this.keyArrowSpeedLR;
   }
   moveRight() {
-    this.x += this.mouseSpeed;
+    this.x += this.keyArrowSpeedLR;
   }
 
   // game
   isOnLog(wood) {
-    this.speed = wood.speed;
+    console.log(wood);
+    this.woodSpeed = wood.speed;
   }
   isNotOnLog() {
-    this.speed = 0;
+    this.woodSpeed = 0;
+  }
+  isInJumpArea() {
+    this.jumpBehavior = true;
+    this.keyArrowSpeedLR = 1;
+    this.keyArrowSpeedTB = 4;
+  }
+  isOutSideJumpArea() {
+    this.jumpBehavior = false;
+    this.keyArrowSpeedLR = this.keyArrowSpeedIni;
+    this.keyArrowSpeedTB = this.keyArrowSpeedIni;
   }
 
   getHeight() {
